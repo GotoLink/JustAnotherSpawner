@@ -195,7 +195,7 @@ public enum CreatureHandlerRegistry {
         String defaultValue = creatureTypeID + delimeter + Boolean.toString(shouldSpawn) + delimeter
                 + Boolean.toString(forceDespawn) + delimeter + Boolean.toString(useModLocationCheck);
         Property resultValue = config.get("CreatureSettings.LivingHandler", mobName, defaultValue);
-        String[] resultParts = resultValue.getString().split("\\" + delimeter);
+        String[] resultParts = resultValue.value.split("\\" + delimeter);
         if (resultParts.length == 4) {
             String resultCreatureType = LivingRegsitryHelper.parseCreatureTypeID(resultParts[0], creatureTypeID,
                     "creatureTypeID");
@@ -223,8 +223,7 @@ public enum CreatureHandlerRegistry {
     private String enumCreatureTypeToLivingType(Class<? extends EntityLiving> livingClass, World world) {
         EntityLiving creature = LivingHelper.createCreature(livingClass, world);
         for (EnumCreatureType type : EnumCreatureType.values()) {
-            boolean isType = creature != null ? creature.isCreatureType(type, true) : type.getClass().isAssignableFrom(
-                    livingClass);
+			boolean isType = type.getClass().isAssignableFrom(livingClass);
             if (isType && CreatureTypeRegistry.INSTANCE.getCreatureType(type.toString()) != null) {
                 return type.toString();
             }
@@ -294,7 +293,7 @@ public enum CreatureHandlerRegistry {
         ConfigCategory category = config.getCategory(categoryKey.toLowerCase(Locale.ENGLISH));
         category.setComment(SpawnListCategoryComment);
 
-        String[] resultParts = resultValue.getString().split("\\" + delimeter);
+        String[] resultParts = resultValue.value.split("\\" + delimeter);
         if (resultParts.length == 4) {
             int resultSpawnWeight = LivingRegsitryHelper.parseInteger(resultParts[0], packSize, "spawnWeight");
             int resultPackSize = LivingRegsitryHelper.parseInteger(resultParts[1], packSize, "packSize");
