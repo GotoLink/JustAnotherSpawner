@@ -71,6 +71,10 @@
 			<value>$%7BPARENT-1-WORKSPACE_LOC%7D/src</value>
 		</variable>
 		<variable>
+			<name>MCP_LIBS</name>
+			<value>MCP_LOC/lib</value>
+		</variable>
+		<variable>
 			<name>MCP_LOC</name>
 			<value>$%7BPARENT-2-WORKSPACE_LOC%7D/forge/mcp</value>
 		</variable>

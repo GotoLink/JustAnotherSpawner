@@ -23,7 +23,7 @@ public class Properties {
             JASLog.severe(
                     "Error with spawnerTickSpacing is %s. spawnerTickSpacing cannot be less than zero. Setting to 0.",
                     resultTickSpacing.getInt(spawnerTickSpacing));
-            resultTickSpacing.set(spawnerTickSpacing);
+            resultTickSpacing.value = Integer.toString(spawnerTickSpacing);
         } else {
             spawnerTickSpacing = resultTickSpacing.getInt(spawnerTickSpacing);
         }
