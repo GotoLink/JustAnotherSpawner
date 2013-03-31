@@ -68,7 +68,7 @@ public class LivingHandler {
                 if (ReflectionHelper.isUnObfuscated(EntityLiving.class, "EntityLiving")) {
                     ReflectionHelper.setFieldUsingReflection("entityAge", EntityLiving.class, entity, true, 0);
                 } else {
-                    ReflectionHelper.setFieldUsingReflection("field_70708_bq", EntityLiving.class, entity, true, 0);
+                    ReflectionHelper.setFieldUsingReflection("bB", EntityLiving.class, entity, true, 0);
                 }
             }
         }
