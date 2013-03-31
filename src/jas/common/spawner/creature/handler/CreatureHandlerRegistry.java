@@ -223,7 +223,7 @@ public enum CreatureHandlerRegistry {
     private String enumCreatureTypeToLivingType(Class<? extends EntityLiving> livingClass, World world) {
         EntityLiving creature = LivingHelper.createCreature(livingClass, world);
         for (EnumCreatureType type : EnumCreatureType.values()) {
-			boolean isType = type.getClass().isAssignableFrom(livingClass);
+			boolean isType = type.getCreatureClass().isAssignableFrom(livingClass);
             if (isType && CreatureTypeRegistry.INSTANCE.getCreatureType(type.toString()) != null) {
                 return type.toString();
             }
