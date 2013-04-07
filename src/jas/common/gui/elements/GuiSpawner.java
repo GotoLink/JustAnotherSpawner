@@ -56,7 +56,8 @@ public class GuiSpawner extends GuiPanel {
     public void drawDefaultBackground() {
         super.drawDefaultBackground();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(DefaultProps.GUIDIR + "large_background.png");
+		this.mc.renderEngine.bindTexture(mc.renderEngine
+				.getTexture(DefaultProps.GUIDIR + "large_background.png"));
         int xCoord = panelPoint.left();
         int yCoord = panelPoint.top();
         this.drawTexturedModalRect(xCoord, yCoord, 0, 0, panelPoint.bounds.getX(), panelPoint.bounds.getY());

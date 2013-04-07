@@ -44,7 +44,7 @@ public class BiomeInterpreterSwamp implements BiomeInterpreter {
         if (biome instanceof BiomeGenSwamp && chunkProviderGenerate != null) {
             MapGenScatteredFeature mapGenScatteredFeature;
             try {
-                mapGenScatteredFeature = ReflectionHelper.getCatchableFieldFromReflection("field_73233_x",
+                mapGenScatteredFeature = ReflectionHelper.getCatchableFieldFromReflection("x",
                         chunkProviderGenerate, MapGenScatteredFeature.class);
             } catch (NoSuchFieldException e) {
                 mapGenScatteredFeature = ReflectionHelper.getFieldFromReflection("scatteredFeatureGenerator",

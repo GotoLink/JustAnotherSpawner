@@ -36,14 +36,14 @@ public class BiomeInterpreterOverworldStructures implements BiomeInterpreter {
                 ChunkProviderGenerate.class);
         if (chunkProviderGenerate != null) {
             MapGenStructure strongholdGen = getStructureGen(MapGenStronghold.class, chunkProviderGenerate,
-                    "strongholdGenerator", "field_73225_u");
+                    "strongholdGenerator", "u");
             String stronghold = isLocationStructure(strongholdGen, STRONGHOLD_KEY, xCoord, yCoord, zCoord);
             if (stronghold != null) {
                 return stronghold;
             }
 
             MapGenStructure mineshaftGen = getStructureGen(MapGenMineshaft.class, chunkProviderGenerate,
-                    "mineshaftGenerator", "field_73223_w");
+                    "mineshaftGenerator", "w");
             String mineshaft = isLocationStructure(mineshaftGen, MINESHAFT_KEY, xCoord, yCoord, zCoord);
             if (mineshaft != null) {
                 return mineshaft;

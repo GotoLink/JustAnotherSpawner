@@ -89,8 +89,8 @@ public class BiomeHandler {
             }
             /* Under StructureSpawns.SpawnList have List of Entities that are Spawnable. */
             Property resultNames = masterConfig.get("CreatureSettings.SpawnList", structureKey, entityList);
-            resultNames = worldConfig.get("CreatureSettings.SpawnList", structureKey, resultNames.getString());
-            ArrayList<Class<? extends EntityLiving>> classList = mobNamesToMobClasses(resultNames.getString());
+            resultNames = worldConfig.get("CreatureSettings.SpawnList", structureKey, resultNames.value);
+            ArrayList<Class<? extends EntityLiving>> classList = mobNamesToMobClasses(resultNames.value);
 
             /*
              * Under StructureSpawns.StructureKey have SpawnListEntry Settings For Each Entity. Use the Global

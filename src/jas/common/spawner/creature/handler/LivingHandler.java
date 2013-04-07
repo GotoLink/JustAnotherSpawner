@@ -157,7 +157,7 @@ public class LivingHandler {
 
         Property resultValue = config.get("CreatureSettings.LivingHandler", mobName, defaultValue);
 
-        String[] resultParts = resultValue.getString().split("\\" + DefaultProps.DELIMETER);
+        String[] resultParts = resultValue.value.split("\\" + DefaultProps.DELIMETER);
 
         if (resultParts.length == 4) {
             String resultCreatureType = LivingRegsitryHelper.parseCreatureTypeID(resultParts[0], creatureTypeID,
@@ -173,7 +173,7 @@ public class LivingHandler {
             JASLog.severe(
                     "LivingHandler Entry %s was invalid. Data is being ignored and loaded with default settings %s, %s, %s, %s",
                     mobName, creatureTypeID, useModLocationCheck, shouldSpawn, forceDespawn);
-            resultValue.set(defaultValue);
+            resultValue.value = defaultValue;
             return new LivingHandler(entityClass, creatureTypeID, useModLocationCheck, shouldSpawn, forceDespawn);
         }
     }

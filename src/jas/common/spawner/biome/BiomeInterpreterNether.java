@@ -49,7 +49,7 @@ public class BiomeInterpreterNether implements BiomeInterpreter {
         if (biome instanceof BiomeGenHell && chunkProviderHell != null) {
             MapGenNetherBridge genNetherBridge;
             try {
-                genNetherBridge = ReflectionHelper.getCatchableFieldFromReflection("field_73172_c", chunkProviderHell,
+                genNetherBridge = ReflectionHelper.getCatchableFieldFromReflection("c", chunkProviderHell,
                         MapGenNetherBridge.class);
             } catch (NoSuchFieldException e) {
                 genNetherBridge = ReflectionHelper.getFieldFromReflection("genNetherBridge", chunkProviderHell,

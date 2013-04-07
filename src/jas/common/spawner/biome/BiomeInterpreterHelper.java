@@ -12,7 +12,7 @@ public class BiomeInterpreterHelper {
         ChunkProviderServer chunkprovider = (ChunkProviderServer) world.getChunkProvider();
         IChunkProvider currentChunkProvider;
         try {
-            currentChunkProvider = ReflectionHelper.getCatchableFieldFromReflection("field_73246_d", chunkprovider,
+            currentChunkProvider = ReflectionHelper.getCatchableFieldFromReflection("d", chunkprovider,
                     IChunkProvider.class);
         } catch (NoSuchFieldException e) {
             currentChunkProvider = ReflectionHelper.getFieldFromReflection("currentChunkProvider", chunkprovider,

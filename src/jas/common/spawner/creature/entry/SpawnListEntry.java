@@ -69,7 +69,7 @@ public class SpawnListEntry extends WeightedRandomItem {
         ConfigCategory category = config.getCategory(categoryKey.toLowerCase(Locale.ENGLISH));
         category.setComment(CreatureHandlerRegistry.SpawnListCategoryComment);
 
-        String[] resultParts = resultValue.getString().split("\\" + DefaultProps.DELIMETER);
+        String[] resultParts = resultValue.value.split("\\" + DefaultProps.DELIMETER);
         if (resultParts.length == 4) {
             int resultSpawnWeight = LivingRegsitryHelper.parseInteger(resultParts[0], packSize, "spawnWeight");
             int resultPackSize = LivingRegsitryHelper.parseInteger(resultParts[1], packSize, "packSize");
@@ -81,7 +81,7 @@ public class SpawnListEntry extends WeightedRandomItem {
             JASLog.severe(
                     "SpawnListEntry %s was invalid. Data is being ignored and loaded with default settings %s, %s",
                     mobName, packSize, itemWeight);
-            resultValue.set(defaultValue);
+            resultValue.value = defaultValue;
             return new SpawnListEntry(livingClass, biomeName, itemWeight, packSize, minChunkPack, maxChunkPack);
         }
     }
