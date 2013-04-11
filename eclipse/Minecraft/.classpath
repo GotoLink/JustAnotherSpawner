@@ -20,6 +20,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="jars/bin/minecraft.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MCP_LIBS"/>
-	<classpathentry kind="lib" path="D:/Minecraft Modding/Project Zulu 2.0/Minecraft 15pr/TwilightForest/TwilightForestSource.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

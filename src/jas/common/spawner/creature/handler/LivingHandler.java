@@ -192,7 +192,7 @@ public class LivingHandler {
 
         Property resultValue = config.get("CreatureSettings.LivingHandler", mobName, defaultValue);
 
-        String[] resultMasterParts = resultValue.getString().split("\\{", 2);
+        String[] resultMasterParts = resultValue.value.split("\\{", 2);
         String[] resultParts = resultMasterParts[0].split("\\" + DefaultProps.DELIMETER);
 
         if (resultParts.length == 4) {
@@ -209,9 +209,9 @@ public class LivingHandler {
             if (resultForceDespawn == true) {
                 resultString = resultString.concat("{despawn}");
             }
-            resultValue.set(resultString);
+            resultValue.value = resultString;
             LivingHandler resultHandler = this.toCreatureTypeID(resultCreatureType).toShouldSpawn(resultShouldSpawn);
-            return resultMasterParts.length == 2 ? resultHandler.toOptionalParameters(resultValue.getString().split(
+            return resultMasterParts.length == 2 ? resultHandler.toOptionalParameters(resultValue.value.split(
                     "\\{", 2)[1]) : resultHandler;
         } else if (resultParts.length == 2) {
             String resultCreatureType = ParsingHelper.parseCreatureTypeID(resultParts[0], creatureTypeID,
