@@ -225,12 +225,14 @@ public enum CreatureHandlerRegistry {
         if (creatureType != null) {
             @SuppressWarnings("unchecked")
             List<net.minecraft.world.biome.SpawnListEntry> spawnListEntries = biome.getSpawnableList(creatureType);
-            for (net.minecraft.world.biome.SpawnListEntry spawnListEntry : spawnListEntries) {
-                if (spawnListEntry.entityClass.equals(livingClass)) {
-                    return new SpawnListEntry(livingClass, biome.biomeName, spawnListEntry.itemWeight, 4,
-                            spawnListEntry.minGroupCount, spawnListEntry.maxGroupCount);
-                }
-            }
+			if (spawnListEntries != null) {
+                for (net.minecraft.world.biome.SpawnListEntry spawnListEntry : spawnListEntries) {
+                    if (spawnListEntry.entityClass.equals(livingClass)) {
+                        return new SpawnListEntry(livingClass, biome.biomeName, spawnListEntry.itemWeight, 4,
+                                spawnListEntry.minGroupCount, spawnListEntry.maxGroupCount);
+					}
+				}
+			}
         }
         return new SpawnListEntry(livingClass, biome.biomeName, 0, 4, 0, 4);
     }
