@@ -2,17 +2,14 @@ package jas.common.spawner.creature.handler;
 
 import jas.common.DefaultProps;
 import jas.common.JASLog;
+import jas.common.Properties;
 import jas.common.spawner.creature.type.CreatureType;
 import jas.common.spawner.creature.type.CreatureTypeRegistry;
-
-import java.util.logging.Level;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -37,10 +34,11 @@ public class LivingHandler {
         this.optionalParameters = optionalParameters;
 
         for (String string : optionalParameters.split("\\{")) {
-            if (string.replace("}", "").split("\\:", 2)[0].equalsIgnoreCase("spawn")) {
-                spawning = new OptionalSettingsSpawning(string);
-            } else if (string.replace("}", "").split("\\:", 2)[0].equalsIgnoreCase("despawn")) {
-                despawning = new OptionalSettingsDespawning(string);
+            String parsed = string.replace("}", "");
+            if (parsed.split("\\:", 2)[0].equalsIgnoreCase("spawn")) {
+                spawning = new OptionalSettingsSpawning(parsed);
+            } else if (parsed.split("\\:", 2)[0].equalsIgnoreCase("despawn")) {
+                despawning = new OptionalSettingsDespawning(parsed);
             }
         }
         spawning = spawning == null ? new OptionalSettingsSpawning("") : spawning;
@@ -126,18 +124,28 @@ public class LivingHandler {
             double d2 = entityplayer.posZ - entity.posZ;
             double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-            boolean canDespawn = true;
+            boolean canDespawn = !despawning.isInverted();
             if (!despawning.isValidLightLevel(entity.worldObj, xCoord, yCoord, zCoord)
+                    || !despawning.isValidSky(entity.worldObj, xCoord, yCoord, zCoord)
                     || !despawning.isValidBlock(entity.worldObj, xCoord, yCoord, zCoord)) {
-                canDespawn = false;
+                canDespawn = despawning.isInverted();
             }
 
-            if (canDespawn && entity.getAge() > 600 && entity.worldObj.rand.nextInt(1 + despawning.getRate() / 3) == 0
-                    && d3 >= 1024.0D) {
-                JASLog.debug(Level.INFO, "Entity %s is DEAD At Age %s rate %s", entity.getEntityName(),
+            if (canDespawn == false) {
+                LivingHelper.setAge(entityplayer, 0);
+                return;
+            }
+
+            Boolean validDistance = despawning.isValidDistance((int) d3);
+            validDistance = validDistance == null ? (int) d3 > Properties.despawnDist : validDistance;
+            if (d3 > 16384.0D) {
+                entity.setDead();
+            } else if (entity.getAge() > 600 && entity.worldObj.rand.nextInt(1 + despawning.getRate() / 3) == 0
+                    && validDistance) {
+                JASLog.info("Entity %s is DEAD At Age %s rate %s", entity.getEntityName(),
                         entity.getAge(), despawning.getRate());
                 entity.setDead();
-            } else if (d3 < 1024.0D) {
+            } else if (!validDistance) {
                 LivingHelper.setAge(entityplayer, 0);
             }
         }
@@ -165,18 +173,18 @@ public class LivingHandler {
         int xCoord = MathHelper.floor_double(entity.posX);
         int yCoord = MathHelper.floor_double(entity.boundingBox.minY);
         int zCoord = MathHelper.floor_double(entity.posZ);
-
+        boolean canSpawn = !spawning.isInverted();
         if (!spawning.isValidBlock(entity.worldObj.getBlockId(xCoord, yCoord - 1, zCoord),
                 entity.worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord))) {
-            return false;
-        } else if (!spawning.isValidLightLevel(entity.worldObj.getSavedLightValue(EnumSkyBlock.Sky, xCoord, yCoord,
-                zCoord))) {
-            return false;
-        } else {
-            return entity.worldObj.checkIfAABBIsClear(entity.boundingBox)
-                    && entity.worldObj.getCollidingBoundingBoxes(entity, entity.boundingBox).isEmpty()
-                    && !entity.worldObj.isAnyLiquid(entity.boundingBox);
+            canSpawn = spawning.isInverted();
+        } else if (!spawning.isValidLightLevel(entity.worldObj, xCoord, yCoord, zCoord)) {
+            canSpawn = spawning.isInverted();
+        } else if (!spawning.isValidSky(entity.worldObj, xCoord, yCoord, zCoord)) {
+            canSpawn = spawning.isInverted();
         }
+        return canSpawn && entity.worldObj.checkIfAABBIsClear(entity.boundingBox)
+                && entity.worldObj.getCollidingBoundingBoxes(entity, entity.boundingBox).isEmpty()
+                && !entity.worldObj.isAnyLiquid(entity.boundingBox);
     }
 
     /**
@@ -188,7 +196,8 @@ public class LivingHandler {
     protected LivingHandler createFromConfig(Configuration config) {
         String mobName = (String) EntityList.classToStringMapping.get(entityClass);
 
-        String defaultValue = creatureTypeID.toUpperCase() + DefaultProps.DELIMETER + Boolean.toString(shouldSpawn);
+        String defaultValue = creatureTypeID.toUpperCase() + DefaultProps.DELIMETER + Boolean.toString(shouldSpawn)
+                + optionalParameters;
 
         Property resultValue = config.get("CreatureSettings.LivingHandler", mobName, defaultValue);
 
@@ -211,14 +220,14 @@ public class LivingHandler {
             }
             resultValue.value = resultString;
             LivingHandler resultHandler = this.toCreatureTypeID(resultCreatureType).toShouldSpawn(resultShouldSpawn);
-            return resultMasterParts.length == 2 ? resultHandler.toOptionalParameters(resultValue.value.split(
+            return resultMasterParts.length == 2 ? resultHandler.toOptionalParameters("{" + resultValue.value.split(
                     "\\{", 2)[1]) : resultHandler;
         } else if (resultParts.length == 2) {
             String resultCreatureType = ParsingHelper.parseCreatureTypeID(resultParts[0], creatureTypeID,
                     "creatureTypeID");
             boolean resultShouldSpawn = ParsingHelper.parseBoolean(resultParts[1], shouldSpawn, "ShouldSpawn");
             LivingHandler resultHandler = this.toCreatureTypeID(resultCreatureType).toShouldSpawn(resultShouldSpawn);
-            return resultMasterParts.length == 2 ? resultHandler.toOptionalParameters(resultMasterParts[1])
+            return resultMasterParts.length == 2 ? resultHandler.toOptionalParameters("{" + resultMasterParts[1])
                     : resultHandler;
         } else {
             JASLog.severe(
