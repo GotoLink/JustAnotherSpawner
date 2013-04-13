@@ -33,7 +33,7 @@ public class LivingHelper {
     public static void setPersistenceRequired(EntityLiving entity, boolean value) {
         try {
             ReflectionHelper
-                    .setCatchableFieldUsingReflection("field_82179_bU", EntityLiving.class, entity, true, value);
+                    .setCatchableFieldUsingReflection("bU", EntityLiving.class, entity, true, value);
         } catch (NoSuchFieldException e) {
             ReflectionHelper.setFieldUsingReflection("persistenceRequired", EntityLiving.class, entity, true, value);
         }
@@ -49,7 +49,7 @@ public class LivingHelper {
     public static void setAge(EntityLiving entity, int value) {
         try {
             ReflectionHelper
-                    .setCatchableFieldUsingReflection("field_82179_bU", EntityLiving.class, entity, true, value);
+                    .setCatchableFieldUsingReflection("bB", EntityLiving.class, entity, true, value);
         } catch (NoSuchFieldException e) {
             ReflectionHelper.setFieldUsingReflection("entityAge", EntityLiving.class, entity, true, value);
         }
