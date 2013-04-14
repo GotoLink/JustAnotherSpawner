@@ -35,7 +35,7 @@ public enum CreatureHandlerRegistry {
     INSTANCE;
     private final HashMap<Class<? extends EntityLiving>, LivingHandler> livingHandlers = new HashMap<Class<? extends EntityLiving>, LivingHandler>();
     private final HashMap<Class<? extends EntityLiving>, Class<? extends LivingHandler>> handlersToAdd = new HashMap<Class<? extends EntityLiving>, Class<? extends LivingHandler>>();
-    
+
     private final HashMap<String, Configuration> modConfigCache = new HashMap<String, Configuration>();
     private List<Class<? extends EntityLiving>> entityList = new ArrayList<Class<? extends EntityLiving>>();
     public static final String delimeter = DefaultProps.DELIMETER;
@@ -208,7 +208,7 @@ public enum CreatureHandlerRegistry {
      * @param livingClass
      * @return
      */
-    public SpawnListEntry findVanillaSpawnListEntry(BiomeGroup group, Class<? extends EntityLiving> livingClass) {
+	public SpawnListEntry findVanillaSpawnListEntry(BiomeGroup group, Class<? extends EntityLiving> livingClass) {
         for (String pckgNames : group.getBiomeNames()) {
             for (Integer biomeID : BiomeGroupRegistry.INSTANCE.pckgNameToBiomeID.get(pckgNames)) {
                 BiomeGenBase biome = BiomeGenBase.biomeList[biomeID];
@@ -217,17 +217,16 @@ public enum CreatureHandlerRegistry {
                     @SuppressWarnings("unchecked")
                     List<net.minecraft.world.biome.SpawnListEntry> spawnListEntries = biome
                             .getSpawnableList(creatureType);
-                    if(spawnListEntries != null){
+                    if (spawnListEntries != null) {
                         for (net.minecraft.world.biome.SpawnListEntry spawnListEntry : spawnListEntries) {
                             if (spawnListEntry.entityClass.equals(livingClass)) {
                                 return new SpawnListEntry(livingClass, group.groupID, spawnListEntry.itemWeight, 4,
                                         spawnListEntry.minGroupCount, spawnListEntry.maxGroupCount);
-                            }
-                        }
-                    }
-                }
-
-            }
+							}
+						}
+					}
+				}
+			}
         }
         return new SpawnListEntry(livingClass, group.groupID, 0, 4, 0, 4);
     }
