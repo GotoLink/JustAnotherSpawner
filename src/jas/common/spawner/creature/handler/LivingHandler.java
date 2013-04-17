@@ -213,7 +213,7 @@ public class LivingHandler {
             resultValue.value = resultString;
             LivingHandler resultHandler = this.toCreatureTypeID(resultCreatureType).toShouldSpawn(resultShouldSpawn);
             return resultMasterParts.length == 2 ? resultHandler.toOptionalParameters("{"
-                    + resultValue.getString().split("\\{", 2)[1]) : resultHandler;
+                    + resultValue.value.split("\\{", 2)[1]) : resultHandler;
         } else if (resultParts.length == 2) {
             String resultCreatureType = ParsingHelper.parseCreatureTypeID(resultParts[0], creatureTypeID,
                     "creatureTypeID");
