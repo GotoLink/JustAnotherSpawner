@@ -50,7 +50,11 @@ public class LivingHelper {
     public static void setAge(EntityLiving entity, int value) {
         try {
             ReflectionHelper
+<<<<<<< HEAD
                     .setCatchableFieldUsingReflection("bB", EntityLiving.class, entity, true, value);
+=======
+                    .setCatchableFieldUsingReflection("field_70708_bq", EntityLiving.class, entity, true, value);
+>>>>>>> dev
         } catch (NoSuchFieldException e) {
             ReflectionHelper.setFieldUsingReflection("entityAge", EntityLiving.class, entity, true, value);
         }
