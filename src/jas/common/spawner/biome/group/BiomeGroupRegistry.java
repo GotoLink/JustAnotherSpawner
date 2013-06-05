@@ -126,8 +126,8 @@ public enum BiomeGroupRegistry {
 
             Property nameMapping = worldConfig.get("biomegroups.packagenamemappings", packageName, biome.biomeName);
 
-            biomeMappingToPckg.put(nameMapping.getString(), packageName);
-            biomePckgToMapping.put(packageName, nameMapping.getString());
+            biomeMappingToPckg.put(nameMapping.value, packageName);
+            biomePckgToMapping.put(packageName, nameMapping.value);
         }
 
         ArrayList<BiomeGroup> biomeGroups = new ArrayList<BiomeGroupRegistry.BiomeGroup>();
@@ -154,7 +154,7 @@ public enum BiomeGroupRegistry {
         /* Get Custom BiomeGroupNames */
         Property customGroupProp = worldConfig.get("BiomeGroups.CustomGroups", "Custom Group Names", "",
                 "Custom Group Names. Seperated by Commas. Edit this to add/remove groups");
-        String[] resultgroups = customGroupProp.getString().split(",");
+        String[] resultgroups = customGroupProp.value.split(",");
         for (String groupName : resultgroups) {
             biomeGroups.add(new BiomeGroup(groupName));
         }

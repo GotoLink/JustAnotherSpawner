@@ -70,7 +70,7 @@ public enum CreatureTypeRegistry {
                 + Properties.saveName + "/" + "CreatureType" + ".cfg"));
         worldConfig.load();
         String comment = "Format: category name seperated by commas i.e. <CategoryName1>,<CategoryName2>";
-        String customNames = worldConfig.get("Extra Categories", "Additions", "", comment).getString().toUpperCase();
+        String customNames = worldConfig.get("Extra Categories", "Additions", "", comment).value.toUpperCase();
         for (String typeID : types.keySet()) {
             CreatureType creatureType = types.get(typeID).createFromConfig(worldConfig);
             types.put(typeID, creatureType);
