@@ -57,14 +57,18 @@ public class Properties {
                         "Default Save_Name",
                         "{$world}",
                         "Default name used for Save_Name. {$world} is replaced by world name. Case Sensitive if OS allows. Beware invalid OS characters.");
-        saveName = defaultsaveProp.value.replace("{$world}",
+        saveName = defaultsaveProp.getString().replace("{$world}",
                 minecraftServer.worldServers[0].getWorldInfo().getWorldName());
 
         Property saveProp = worldGloablConfig
                 .get("Save_Configuration." + minecraftServer.worldServers[0].getWorldInfo().getWorldName(),
                         "Save_Name", saveName,
                         "Folder name to look for and generate CFG files. Case Sensitive if OS allows. Beware invalid OS characters.");
-        saveName = saveProp.value.trim().equals("") ? "default" : saveProp.value;
+<<<<<<< HEAD
+        saveName = saveProp.value.equals("") ? "default" : saveProp.value;
+=======
+        saveName = saveProp.getString().trim().equals("") ? "default" : saveProp.getString();
+>>>>>>> dev
 
         Property importProp = worldGloablConfig.get("Save_Configuration", "Import_Name", "",
                 "Folder name to Copy Missing Files From. Case Sensitive if OS allows. Beware invalid OS characters.");
