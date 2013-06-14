@@ -69,7 +69,7 @@ public class Properties {
         /* Load Save Use Import_Name */
         Property importProp = worldGloablConfig.get("Save_Configuration", "Import_Name", "",
                 "Folder name to Copy Missing Files From. Case Sensitive if OS allows. Beware invalid OS characters.");
-        importName = importProp.getString();
+        importName = importProp.value;
 
         /* Load Save Use Global Save_Name */
         Property defaultsaveProp = worldGloablConfig
@@ -77,7 +77,7 @@ public class Properties {
                         "Default Save_Name",
                         "{$world}",
                         "Default name used for Save_Name. {$world} is replaced by world name. Case Sensitive if OS allows. Beware invalid OS characters.");
-        saveName = defaultsaveProp.getString().replace("{$world}", curWorldName);
+        saveName = defaultsaveProp.value.replace("{$world}", curWorldName);
 
         /* Load Save Use Actual Save_Name */
         Property saveProp = worldGloablConfig

@@ -132,7 +132,7 @@ public class BiomeHandler {
                     entityListString = entityListString.concat(",");
                 }
             }
-            config.getStructureSpawns(entry.getKey(), entityListString).set(entityListString);
+            config.getStructureSpawns(entry.getKey(), entityListString).value = entityListString;
         }
     }
 

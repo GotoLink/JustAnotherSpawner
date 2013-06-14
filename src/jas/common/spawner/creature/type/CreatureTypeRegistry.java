@@ -65,7 +65,7 @@ public enum CreatureTypeRegistry {
     public void initializeFromConfig(File configDirectory) {
         EntityCategoryConfiguration config = new EntityCategoryConfiguration(configDirectory);
         config.load();
-        String customNames = config.getCustomCategories("").getString().toUpperCase();
+        String customNames = config.getCustomCategories("").value.toUpperCase();
         for (String typeID : types.keySet()) {
             CreatureType creatureType = types.get(typeID).createFromConfig(config);
             types.put(typeID, creatureType);
@@ -116,7 +116,7 @@ public enum CreatureTypeRegistry {
                 typeName = nameString.concat(",");
             }
         }
-        config.getCustomCategories(nameString).set(nameString);
+        config.getCustomCategories(nameString).value = nameString;
 
         /* Save All Category Settings */
         for (CreatureType entry : types.values()) {

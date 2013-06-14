@@ -85,7 +85,7 @@ public class SpawnListEntry extends WeightedRandomItem {
                 + Integer.toString(maxChunkPack) + optionalParameters;
         Property resultValue = getSpawnEntryProperty(config, defaultValue);
 
-        String[] resultMasterParts = resultValue.getString().split("\\{", 2);
+        String[] resultMasterParts = resultValue.value.split("\\{", 2);
         String[] resultParts = resultMasterParts[0].split("\\" + DefaultProps.DELIMETER);
         if (resultParts.length == 4) {
             int resultSpawnWeight = ParsingHelper.parseFilteredInteger(resultParts[0], packSize, "spawnWeight");
@@ -109,7 +109,7 @@ public class SpawnListEntry extends WeightedRandomItem {
                 + DefaultProps.DELIMETER + Integer.toString(minChunkPack) + DefaultProps.DELIMETER
                 + Integer.toString(maxChunkPack);
         Property resultValue = getSpawnEntryProperty(config, defaultValue);
-        resultValue.set(defaultValue);
+        resultValue.value = defaultValue;
     }
 
     private Property getSpawnEntryProperty(Configuration config, String defaultValue) {

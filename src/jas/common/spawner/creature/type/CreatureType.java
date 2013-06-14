@@ -392,7 +392,7 @@ public class CreatureType {
         int resultSpawnRate = config.getSpawnRate(typeID, spawnRate).getInt();
         int resultMaxNumberOfCreature = config.getSpawnCap(typeID, maxNumberOfCreature).getInt();
         boolean resultChunkSpawning = config.getChunkSpawning(typeID, chunkSpawning).getBoolean(chunkSpawning);
-        String resultOptionalParameters = config.getOptionalTags(typeID, optionalParameters).getString();
+        String resultOptionalParameters = config.getOptionalTags(typeID, optionalParameters).value;
         return this.maxNumberOfCreatureTo(resultMaxNumberOfCreature).spawnRateTo(resultSpawnRate)
                 .chunkSpawningTo(resultChunkSpawning).optionalParametersTo(resultOptionalParameters);
     }
@@ -404,10 +404,10 @@ public class CreatureType {
      * @return
      */
     public void saveToConfig(EntityCategoryConfiguration config) {
-        config.getSpawnRate(typeID, spawnRate).set(spawnRate);
-        config.getSpawnCap(typeID, maxNumberOfCreature).set(maxNumberOfCreature);
-        config.getChunkSpawning(typeID, chunkSpawning).set(chunkSpawning);
-        config.getOptionalTags(typeID, optionalParameters).set(optionalParameters);
+        config.getSpawnRate(typeID, spawnRate).value = Integer.toString(spawnRate);
+        config.getSpawnCap(typeID, maxNumberOfCreature).value = Integer.toString(maxNumberOfCreature);
+        config.getChunkSpawning(typeID, chunkSpawning).value = Boolean.toString(chunkSpawning);
+        config.getOptionalTags(typeID, optionalParameters).value = optionalParameters;
     }
 
     /*

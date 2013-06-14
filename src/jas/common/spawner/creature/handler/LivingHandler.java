@@ -197,6 +197,7 @@ public class LivingHandler {
         } else {
             canSpawn = canLivingSpawn || canSpawnListSpawn;
         }
+        return canSpawn && entity.worldObj.checkIfAABBIsClear(entity.boundingBox)
                 && entity.worldObj.getCollidingBoundingBoxes(entity, entity.boundingBox).isEmpty();
     }
 
@@ -261,6 +262,6 @@ public class LivingHandler {
         String mobName = (String) EntityList.classToStringMapping.get(entityClass);
         String currentValue = creatureTypeID.toUpperCase() + DefaultProps.DELIMETER + Boolean.toString(shouldSpawn)
                 + optionalParameters;
-        config.getLivingHandler(mobName, currentValue).set(currentValue);
+        config.getLivingHandler(mobName, currentValue).value = currentValue;
     }
 }

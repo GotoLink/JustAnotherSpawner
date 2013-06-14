@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 
 import net.minecraft.world.GameRules;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -72,7 +71,7 @@ public class JustAnotherSpawner {
 
     @PostInit
     public void postInit(FMLPostInitializationEvent event) {
-        BiomeDictionary.registerAllBiomes();
+//        BiomeDictionary.registerAllBiomes();
         importedSpawnList = new ImportedSpawnList();
         importedSpawnList.importVanillaSpawnLists(Properties.emptyVanillaSpawnLists);
     }
