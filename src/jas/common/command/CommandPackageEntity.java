@@ -6,9 +6,9 @@ import java.util.List;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.EntityList;
-import net.minecraft.util.ChatMessageComponent;
 
 public class CommandPackageEntity extends CommandJasBase {
+    @Override
     public String getCommandName() {
         return "entitypackage";
     }
@@ -16,6 +16,7 @@ public class CommandPackageEntity extends CommandJasBase {
     /**
      * Return the required permission level for this command.
      */
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
@@ -34,8 +35,7 @@ public class CommandPackageEntity extends CommandJasBase {
         String name = stringArgs[0];
         Class<?> entityClass = (Class<?>) EntityList.stringToClassMapping.get(name);
         if (entityClass != null) {
-            commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(name.concat(" package is ").concat(
-                    entityClass.getName())));
+            commandSender.sendChatToPlayer(name.concat(" package is ").concat(entityClass.getName()));
         } else {
             throw new WrongUsageException("commands.jasentitypackage.typenotfound", new Object[0]);
         }

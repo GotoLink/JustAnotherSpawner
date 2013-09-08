@@ -1,12 +1,12 @@
 package jas.common.spawner.creature.handler;
 
-import java.lang.reflect.InvocationTargetException;
-
 import jas.common.JASLog;
 import jas.common.ReflectionHelper;
+
+import java.lang.reflect.InvocationTargetException;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 
 public class LivingHelper {
@@ -56,12 +56,12 @@ public class LivingHelper {
      * @param worldServer Instance of World
      * @return
      */
-    public static void setAge(EntityLivingBase entity, int value) {
+    public static void setAge(EntityLiving entity, int value) {
         try {
             ReflectionHelper
-                    .setCatchableFieldUsingReflection("field_70708_bq", EntityLivingBase.class, entity, true, value);
+                    .setCatchableFieldUsingReflection("field_70708_bq", EntityLiving.class, entity, true, value);
         } catch (NoSuchFieldException e) {
-            ReflectionHelper.setFieldUsingReflection("entityAge", EntityLivingBase.class, entity, true, value);
+            ReflectionHelper.setFieldUsingReflection("entityAge", EntityLiving.class, entity, true, value);
         }
     }
 
@@ -71,7 +71,7 @@ public class LivingHelper {
      * @param livingClass Class of Desired Creature
      * @return
      */
-    public static boolean canDespawn(EntityLivingBase entity) {
+    public static boolean canDespawn(EntityLiving entity) {
         return (Boolean) ReflectionHelper.invokeMethod("canDespawn", "func_70692_ba", entity);
     }
 }

@@ -20,7 +20,6 @@ import java.util.logging.Level;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
@@ -126,7 +125,6 @@ public class CustomSpawner {
                             int blockSpawnZ = i2;
                             byte variance = 6;
                             SpawnListEntry spawnlistentry = null;
-                            EntityLivingData entitylivingdata = null;
                             CountableInt livingCount = null;
                             int livingCap = 0;
                             for (int k3 = 0; k3 < 4; ++k3) {
@@ -199,7 +197,7 @@ public class CustomSpawner {
                                             worldServer.spawnEntityInWorld(entityliving);
                                             if (!ForgeEventFactory.doSpecialSpawn(entityliving, worldServer, spawnX,
                                                     spawnY, spawnZ)) {
-                                                entitylivingdata = entityliving.func_110161_a(entitylivingdata);
+                                                entityliving.initCreature();
                                             }
                                             try {
                                                 JASLog.log(LogType.SPAWNING, Level.INFO,
@@ -258,7 +256,6 @@ public class CustomSpawner {
             SpawnListEntry spawnListEntry = creatureType.getSpawnListEntryToSpawn(JustAnotherSpawner.worldSettings()
                     .creatureHandlerRegistry(), JustAnotherSpawner.worldSettings().biomeHandlerRegistry(), world,
                     BiomeHelper.getPackageName(biome), j1, world.getTopSolidOrLiquidBlock(j1, k1), k1);
-            EntityLivingData entitylivingdata = null;
             if (spawnListEntry == null) {
                 JASLog.debug(Level.INFO, "Entity not Spawned due to Empty %s List", creatureType.typeID);
                 return;
@@ -295,7 +292,7 @@ public class CustomSpawner {
                                 entityliving.getEntityName(), entityliving.posX, entityliving.posY, entityliving.posZ);
                         world.spawnEntityInWorld(entityliving);
                         if (!ForgeEventFactory.doSpecialSpawn(entityliving, world, f, f1, f2)) {
-                            entitylivingdata = entityliving.func_110161_a(entitylivingdata);
+                            entityliving.initCreature();
                         }
                         flag = true;
                     } else {

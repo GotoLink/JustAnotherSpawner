@@ -16,8 +16,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PostInit;
+import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -60,7 +63,7 @@ public class JustAnotherSpawner {
         return worldSettings;
     }
 
-    @EventHandler
+    @PreInit
     public void preInit(FMLPreInitializationEvent event) {
         modConfigDirectoryFile = event.getModConfigurationDirectory();
         globalSettings = new GlobalSettings(modConfigDirectoryFile);
@@ -69,13 +72,13 @@ public class JustAnotherSpawner {
         // proxy.registerKeyBinding();
     }
 
-    @EventHandler
+    @Init
     public void load(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new EntityDespawner());
         NetworkRegistry.instance().registerGuiHandler(modInstance, new GuiHandler());
     }
 
-    @EventHandler
+    @PostInit
     public void postInit(FMLPostInitializationEvent event) {
         BiomeDictionary.registerAllBiomes();
         biomeBlacklist = new BiomeBlacklist(modConfigDirectoryFile);
@@ -85,7 +88,7 @@ public class JustAnotherSpawner {
         MinecraftForge.EVENT_BUS.post(new CompatibilityRegistrationEvent(new CompatabilityRegister()));
     }
 
-    @EventHandler
+    @ServerStarting
     public void serverStart(FMLServerStartingEvent event) {
         worldSettings = new WorldSettings(modConfigDirectoryFile, event.getServer().worldServers[0], importedSpawnList);
         event.registerServerCommand(new CommandJAS());

@@ -17,9 +17,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatMessageComponent;
 
 public class CommandKillAll extends CommandJasBase {
+    @Override
     public String getCommandName() {
         return "killall";
     }
@@ -27,6 +27,7 @@ public class CommandKillAll extends CommandJasBase {
     /**
      * Return the required permission level for this command.
      */
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
@@ -82,7 +83,7 @@ public class CommandKillAll extends CommandJasBase {
             }
             deathMessage.append(entry.getValue().get()).append("-").append(entry.getKey());
         }
-        commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(deathMessage.toString()));
+        commandSender.sendChatToPlayer(deathMessage.toString());
     }
 
     private boolean isEntityFiltered(Entity entity, String filter) {

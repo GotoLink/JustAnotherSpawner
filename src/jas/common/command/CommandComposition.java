@@ -16,9 +16,9 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatMessageComponent;
 
 public class CommandComposition extends CommandJasBase {
+    @Override
     public String getCommandName() {
         return "composition";
     }
@@ -26,6 +26,7 @@ public class CommandComposition extends CommandJasBase {
     /**
      * Return the required permission level for this command.
      */
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
@@ -113,7 +114,7 @@ public class CommandComposition extends CommandJasBase {
         if (!foundMatch) {
             throw new WrongUsageException("commands.jascomposition.typenotfound", new Object[0]);
         } else {
-            commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(countedContents.toString()));
+            commandSender.sendChatToPlayer(countedContents.toString());
         }
     }
 

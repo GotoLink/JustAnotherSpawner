@@ -16,13 +16,13 @@ import net.minecraft.command.NumberInvalidException;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 public class CommandCountCap extends CommandJasBase {
 
+    @Override
     public String getCommandName() {
         return "countcap";
     }
@@ -30,6 +30,7 @@ public class CommandCountCap extends CommandJasBase {
     /**
      * Return the required permission level for this command.
      */
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
@@ -106,7 +107,7 @@ public class CommandCountCap extends CommandJasBase {
             if (!foundMatch) {
                 throw new WrongUsageException("commands.jascountcap.typenotfound", new Object[0]);
             } else {
-                commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(worldTypeContents.toString()));
+                commandSender.sendChatToPlayer(worldTypeContents.toString());
             }
         }
     }

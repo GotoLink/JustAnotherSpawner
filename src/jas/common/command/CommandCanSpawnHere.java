@@ -18,10 +18,10 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class CommandCanSpawnHere extends CommandJasBase {
+    @Override
     public String getCommandName() {
         return "canspawnhere";
     }
@@ -29,6 +29,7 @@ public class CommandCanSpawnHere extends CommandJasBase {
     /**
      * Return the required permission level for this command.
      */
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
@@ -52,13 +53,14 @@ public class CommandCanSpawnHere extends CommandJasBase {
         }
 
         EntityLiving entity = getTargetEntity(entityName, targetPlayer);
-        LivingHandler livingHandler = JustAnotherSpawner.worldSettings().creatureHandlerRegistry().getLivingHandler(entity.getClass());
+        LivingHandler livingHandler = JustAnotherSpawner.worldSettings().creatureHandlerRegistry()
+                .getLivingHandler(entity.getClass());
 
-        CreatureType livingType = JustAnotherSpawner.worldSettings().creatureTypeRegistry().getCreatureType(
-                livingHandler.creatureTypeID);
+        CreatureType livingType = JustAnotherSpawner.worldSettings().creatureTypeRegistry()
+                .getCreatureType(livingHandler.creatureTypeID);
         if (livingType == null) {
-            commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(String.format(
-                    "Entity %s is of type NONE and thus will never spawn.", entityName)));
+            commandSender.sendChatToPlayer(String.format("Entity %s is of type NONE and thus will never spawn.",
+                    entityName));
             return;
         }
 
@@ -109,7 +111,7 @@ public class CommandCanSpawnHere extends CommandJasBase {
                 }
             }
         }
-        commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(resultMessage.toString()));
+        commandSender.sendChatToPlayer(resultMessage.toString());
     }
 
     private boolean isValidEntityName(String entityName) {
@@ -128,7 +130,7 @@ public class CommandCanSpawnHere extends CommandJasBase {
             @SuppressWarnings("unchecked")
             Class<? extends EntityLiving> entityClass = (Class<? extends EntityLiving>) EntityList.stringToClassMapping
                     .get(entityName);
-            entity = (EntityLiving) LivingHelper.instantiateEntity(entityClass, targetPlayer.worldObj);
+            entity = LivingHelper.instantiateEntity(entityClass, targetPlayer.worldObj);
         } catch (Exception exception) {
             throw new WrongUsageException("commands.jascanspawnhere.cannotinstantiateentity", new Object[0]);
         }

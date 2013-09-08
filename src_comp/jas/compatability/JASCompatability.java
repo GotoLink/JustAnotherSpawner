@@ -10,8 +10,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
@@ -24,7 +24,7 @@ public class JASCompatability {
     @Instance(CompatibilityProps.MODID)
     public static JASCompatability modInstance;
 
-    @EventHandler
+    @PreInit
     public void preInit(FMLPreInitializationEvent event) {
         modulesInfo.add(new TFLoadInfo());
         MinecraftForge.EVENT_BUS.register(this);

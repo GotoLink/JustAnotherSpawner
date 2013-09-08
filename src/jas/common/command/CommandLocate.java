@@ -13,9 +13,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatMessageComponent;
 
 public class CommandLocate extends CommandJasBase {
+    @Override
     public String getCommandName() {
         return "locate";
     }
@@ -23,6 +23,7 @@ public class CommandLocate extends CommandJasBase {
     /**
      * Return the required permission level for this command.
      */
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
@@ -74,7 +75,7 @@ public class CommandLocate extends CommandJasBase {
         if (!foundMatch) {
             throw new WrongUsageException("commands.jaslocate.typenotfound", new Object[0]);
         } else {
-            commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(countedContents.toString()));
+            commandSender.sendChatToPlayer(countedContents.toString());
         }
     }
 

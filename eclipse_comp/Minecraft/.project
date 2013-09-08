@@ -18,7 +18,7 @@
 		<link>
 			<name>COMP_SRC</name>
 			<type>2</type>
-			<location>D:/Minecraft Modding/Project Zulu 2.0/Minecraft 16/jas/src_comp</location>
+			<location>D:/Minecraft Modding/Project Zulu 2.0/Minecraft 15pr/jas/src_comp</location>
 		</link>
 		<link>
 			<name>GIT_SRC</name>
@@ -43,30 +43,12 @@
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1373148024759</id>
+			<id>1360892743151</id>
 			<name>jars</name>
 			<type>13</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-libraries</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1373148024759</id>
-			<name>jars</name>
-			<type>13</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-versions</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1373148024759</id>
-			<name>jars</name>
-			<type>26</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-natives</arguments>
+				<arguments>1.0-name-matches-false-false-bin</arguments>
 			</matcher>
 		</filter>
 		<filter>

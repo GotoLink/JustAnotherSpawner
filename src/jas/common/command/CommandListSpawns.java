@@ -14,10 +14,10 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class CommandListSpawns extends CommandJasBase {
+    @Override
     public String getCommandName() {
         return "listspawns";
     }
@@ -25,6 +25,7 @@ public class CommandListSpawns extends CommandJasBase {
     /**
      * Return the required permission level for this command.
      */
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
@@ -75,11 +76,10 @@ public class CommandListSpawns extends CommandJasBase {
         }
 
         if (isStructure) {
-            commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(getStructureSpawnList(
-                    targetBiomeStructure, entityCategName, expandedEntries)));
+            commandSender
+                    .sendChatToPlayer(getStructureSpawnList(targetBiomeStructure, entityCategName, expandedEntries));
         } else {
-            commandSender.sendChatToPlayer(new ChatMessageComponent().func_111079_a(getBiomeSpawnList(
-                    targetBiomeStructure, entityCategName, expandedEntries)));
+            commandSender.sendChatToPlayer(getBiomeSpawnList(targetBiomeStructure, entityCategName, expandedEntries));
         }
     }
 
