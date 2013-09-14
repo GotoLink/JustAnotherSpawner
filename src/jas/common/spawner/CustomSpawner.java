@@ -204,7 +204,7 @@ public class CustomSpawner {
                                                     (int) entityliving.posX, (int) entityliving.posY,
                                                     (int) entityliving.posZ, BiomeHelper
                                                             .getPackageName(entityliving.worldObj.getBiomeGenForCoords(
-                                                                    (int) entityliving.posX, (int) entityliving.posX)));
+                                                                    (int) entityliving.posX, (int) entityliving.posZ)));
                                             typeCount.increment();
                                             livingCount.increment();
 
@@ -283,7 +283,7 @@ public class CustomSpawner {
                                 (int) entityliving.posX, (int) entityliving.posY,
                                 (int) entityliving.posZ, BiomeHelper
                                         .getPackageName(entityliving.worldObj.getBiomeGenForCoords(
-                                                (int) entityliving.posX, (int) entityliving.posX)));
+                                                (int) entityliving.posX, (int) entityliving.posZ)));
                         world.spawnEntityInWorld(entityliving);
                         if (!ForgeEventFactory.doSpecialSpawn(entityliving, world, f, f1, f2)) {
                             entityliving.initCreature();
