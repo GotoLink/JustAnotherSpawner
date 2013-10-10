@@ -21,5 +21,12 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="jars/bin/minecraft.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MCP_LIB"/>
+	<classpathentry kind="lib" path="jars/versions/1.6.4/1.6.4.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Minecraft/jars/versions/1.6.4/1.6.4-natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="jars/libraries/net/minecraft/launchwrapper/1.8/launchwrapper-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/twilightforest.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,6 +1,7 @@
 package jas.common.command;
 
 import jas.common.JustAnotherSpawner;
+import jas.common.spawner.creature.handler.LivingGroupRegistry;
 import jas.common.spawner.creature.handler.LivingHandler;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayerMP;
+
+import com.google.common.collect.ImmutableCollection;
 
 public class CommandLocate extends CommandJasBase {
     @Override
@@ -55,19 +58,25 @@ public class CommandLocate extends CommandJasBase {
         Iterator<Entity> iterator = targetPlayer.worldObj.loadedEntityList.iterator();
         while (iterator.hasNext()) {
             Entity entity = iterator.next();
-            LivingHandler handler = JustAnotherSpawner.worldSettings().creatureHandlerRegistry()
-                    .getLivingHandler(entity.getClass());
-            if (handler != null && (entityTarget.equals("*") || handler.creatureTypeID.equals(entityTarget))
-                    || entityTarget.equals(EntityList.classToStringMapping.get(entity.getClass()))) {
-                foundMatch = true;
-                boolean canDespawn = handler.canDespawn((EntityLiving) entity);
-                countedContents.append(canDespawn ? "\u00A7a" : "\u00A7c")
-                        .append(EntityList.classToStringMapping.get(entity.getClass())).append("\u00A7r[");
-                countedContents.append("\u00A79").append((int) entity.posX).append("\u00A7r").append(",");
-                countedContents.append("\u00A79").append((int) entity.posY).append("\u00A7r").append(",");
-                countedContents.append("\u00A79").append((int) entity.posZ).append("\u00A7r");
-                if (iterator.hasNext()) {
-                    countedContents.append("] ");
+            LivingGroupRegistry groupRegistry = JustAnotherSpawner.worldSettings().livingGroupRegistry();
+            ImmutableCollection<String> groupIDs = groupRegistry.getGroupsWithEntity(groupRegistry.EntityClasstoJASName
+                    .get(entity.getClass()));
+            for (String groupID : groupIDs) {
+                LivingHandler handler = JustAnotherSpawner.worldSettings().livingHandlerRegistry()
+                        .getLivingHandler(groupID);
+                if (handler != null && (entityTarget.equals("*") || handler.creatureTypeID.equals(entityTarget))
+                        || entityTarget.equals(EntityList.classToStringMapping.get(entity.getClass()))) {
+                    foundMatch = true;
+                    boolean canDespawn = handler.canDespawn((EntityLiving) entity);
+                    countedContents.append(canDespawn ? "\u00A7a" : "\u00A7c")
+                            .append(EntityList.classToStringMapping.get(entity.getClass())).append("\u00A7r[");
+                    countedContents.append("\u00A79").append((int) entity.posX).append("\u00A7r").append(",");
+                    countedContents.append("\u00A79").append((int) entity.posY).append("\u00A7r").append(",");
+                    countedContents.append("\u00A79").append((int) entity.posZ).append("\u00A7r");
+                    if (iterator.hasNext()) {
+                        countedContents.append("] ");
+                    }
+                    break;
                 }
             }
         }
