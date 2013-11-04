@@ -13,7 +13,6 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatMessageComponent;
 
 public class CommandCanDespawnHere extends CommandJasBase {
 
@@ -33,8 +32,8 @@ public class CommandCanDespawnHere extends CommandJasBase {
             throw new WrongUsageException("commands.jascandespawnhere.usage", new Object[0]);
         }
 
-        EntityPlayer targetPlayer = stringArgs.length == 1 ? getPlayer(commandSender,
-                commandSender.getCommandSenderName()) : getPlayer(commandSender, stringArgs[0]);
+        EntityPlayer targetPlayer = stringArgs.length == 1 ? func_82359_c(commandSender,
+                commandSender.getCommandSenderName()) : func_82359_c(commandSender, stringArgs[0]);
         String entityName = stringArgs.length == 1 ? stringArgs[0] : stringArgs[1];
         if (!isValidEntityName(entityName)) {
             throw new WrongUsageException("commands.jascanspawnhere.entitynotfound", new Object[0]);
@@ -49,7 +48,7 @@ public class CommandCanDespawnHere extends CommandJasBase {
             resultMessage.append("\u00A7c").append("Entity ").append(entityName).append(" cannot despawn here.");
         }
         resultMessage.append("\u00A7r");
-        commandSender.sendChatToPlayer(new ChatMessageComponent().addText(resultMessage.toString()));
+        commandSender.sendChatToPlayer(resultMessage.toString());
     }
 
     private boolean isValidEntityName(String entityName) {
@@ -68,7 +67,7 @@ public class CommandCanDespawnHere extends CommandJasBase {
             @SuppressWarnings("unchecked")
             Class<? extends EntityLiving> entityClass = (Class<? extends EntityLiving>) EntityList.stringToClassMapping
                     .get(entityName);
-            entity = (EntityLiving) LivingHelper.instantiateEntity(entityClass, targetPlayer.worldObj);
+            entity = LivingHelper.instantiateEntity(entityClass, targetPlayer.worldObj);
         } catch (Exception exception) {
             throw new WrongUsageException("commands.jascanspawnhere.cannotinstantiateentity", new Object[0]);
         }
